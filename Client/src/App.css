@@ -1,0 +1,21 @@
+.App{
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.QrMiddle{ 
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+ 
+}
+
+.QrMiddle h4{ 
+  margin: 2px;
+  font-weight: 400;
+  margin-top: 15px;
+}
+
