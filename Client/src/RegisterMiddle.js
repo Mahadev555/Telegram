@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
+import axios from 'axios';
 
 function RegisterMiddle(){
     const [selectedValue, setSelectedValue] = useState(' ');
@@ -133,12 +134,20 @@ function RegisterMiddle(){
             window.alert("massword not matching")
 
         }
-       else{ window.alert("Successfully registered")
-        navigate('/', {
-            state: {
-                fullCode: fullCode
-            }
-        });
+       else{ 
+        axios.post('/register', { mobile, password })
+       .then(response => {
+           window.alert("Successfully registered");
+           navigate('/', {
+               state: {
+                   fullCode: fullCode
+               }
+           });
+       })
+       .catch(error => {
+           console.error('Registration failed:', error);
+          
+       });
     }
     }
 
