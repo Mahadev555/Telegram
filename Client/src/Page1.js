@@ -7,18 +7,7 @@ import QrFooter from './QrFooter';
 import QrMiddle from './QrMiddle';
 function Page1() {
 
-    const [backData, setBackData] = useState([{}]);
 
-    useEffect(() => {
-        fetch('/api').then(
-            res => res.json()).then(
-                data => {
-            setBackData(data)
-        })
-    }, [])
-
-
-    console.log(backData[0]?.name)
     return (
         <>
             <Qr />

@@ -22,16 +22,19 @@ function QrFooter() {
         fontSize:'15px'
     }
 
-    function handleClick() {
+    function handleClickRegister() {
         navigate('/Register' );
+    }
+    function handleClickLogin() {
+        navigate('/login' );
     }
     return (
         <div style={style2}>
             <div style={style}> 
-                <button onClick={handleClick} style={style3}> Register here</button>
+                <button onClick={handleClickRegister} style={style3}> Register here</button>
             </div>
             <div style={style}>
-                <button style={style3}>Login with password </button>
+                <button onClick={handleClickLogin} style={style3}>Login with password </button>
                
             </div>
         </div>

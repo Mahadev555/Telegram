@@ -1,8 +1,14 @@
 const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
-    Mobile: Number,
-    Password: String,
+  mobile: {
+    type: Number,
+    required: true
+},
+password: {
+    type: String,
+    required: true
+},
   });
 
 const UserModel = mongoose.model('users', UserSchema);

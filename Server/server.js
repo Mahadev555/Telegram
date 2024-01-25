@@ -20,13 +20,6 @@ connectDB()
         console.log('Connected to MongoDB');
         app.use('/', router);
 
-        
-
-        app.post('/api', (req, res) => {
-            console.log(req.body);
-            res.send(req.body);
-        });
-
         app.listen(port, () => {
             console.log(`Server is running on port ${port}`);
         });

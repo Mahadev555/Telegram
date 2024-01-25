@@ -5,7 +5,7 @@ const authCC= require("../Controllers/auth-controller")
 
 
 router.route('/').get(authCC.home)
-router.route('/register').post(authCC.register)
-router.route('/check').get(authCC.check)
+router.route('/api/register').post(authCC.register)
+router.route('/api/login').post(authCC.login)
 
 module.exports = router;

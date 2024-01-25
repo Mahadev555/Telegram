@@ -6,6 +6,7 @@ import Page3 from './Page3';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Page4 from './Page4';
 import Register from './Register';
+import Login from './Login';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/page3" element={<Page3 />} />
           <Route path="/page4" element={<Page4 />} />
           <Route path="/Register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </Router>
     </div>

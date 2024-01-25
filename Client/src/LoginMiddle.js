@@ -1,15 +1,16 @@
+ 
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 import axios from 'axios';
+import { faWindowRestore } from '@fortawesome/free-solid-svg-icons';
 
-function RegisterMiddle() {
+function LoginMiddle() {
     const [selectedValue, setSelectedValue] = useState(' ');
     const [dialingCode, setDialingCode] = useState('');
     const [mobile, setMobile] = useState('');
     const [isFormValid, setIsFormValid] = useState(false);
     const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
 
 
     const style = {
@@ -71,8 +72,7 @@ function RegisterMiddle() {
             India: '+91 ',
             Pakistan: '+92 ',
             UK: '+44 ',
-            US: '+1 ',
-            // Add more countries as needed
+            US: '+1 ', 
         };
 
         setDialingCode(countryCodes[selectedValue.value] || '');
@@ -98,10 +98,7 @@ function RegisterMiddle() {
         setPassword(inputValue)
     }
 
-    const handleConfirmPass = (e) => {
-        let inputValue = e.target.value;
-        setConfirmPassword(inputValue)
-    }
+    
 
     const validateForm = () => {
         const isInputFilled = mobile && mobile.trim() !== '';
@@ -130,33 +127,33 @@ function RegisterMiddle() {
 
     function handleClick() {
 
-        if (password !== confirmPassword) {
-            window.alert("Password not matching");
-        } else { 
-            axios.post('/api/register', { mobile, password })
+       
+            axios.post('/api/login', { mobile, password })
                 .then(response => { 
                     if (response.data.msg === true) {
-                        window.alert("User already exists");
+                        window.alert("User not exists");
                     } else {
-                        window.alert("Successfully registered");
-                        navigate('/', {
+                        if(response.data.passMatch===true){
+
+                        navigate('/page4', {
                             state: {
                                 fullCode: fullCode
                             }
                         });
+                        }else{
+                            window.alert("Entered wrong Password")
+                        }
                     }
                 })
                 .catch(error => { 
                     console.error('Registration failed:', error);
                     window.alert("Registration failed");
                 });
-        }
-    }
-
+            }
     return (
 
         <div style={style}>
-
+            <h2 style={{marginTop:'-20px'}}>Login</h2>
             <Select
                 options={[
                     { value: 'India', label: 'India' },
@@ -201,14 +198,6 @@ function RegisterMiddle() {
                     onChange={handlePass}
                 />
             </div>
-            <div>
-                <input
-                    style={selectStyle}
-                    placeholder="Confirm Password"
-                    value={confirmPassword}
-                    onChange={handleConfirmPass}
-                />
-            </div>
 
 
 
@@ -222,7 +211,7 @@ function RegisterMiddle() {
                 className=""
                 disabled={!isFormValid}
             >
-                Register
+                Login
             </button>
 
 
@@ -230,4 +219,4 @@ function RegisterMiddle() {
     );
 }
 
-export default RegisterMiddle;
+export default LoginMiddle
