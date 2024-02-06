@@ -6,7 +6,7 @@ function Qr() {
         marginRight: '0',
         marginBottom: '0',
         marginTop:"30px",
-        height:"280px"
+        height:"220px"
     }
     
     return (

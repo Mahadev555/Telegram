@@ -5,13 +5,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 
 function Page3Middle({ number, Otp }) {
+    console.log("🚀 ~ Page3Middle ~ number:", number)
     const [dialingCode, setDialingCode] = useState('');
     const [isFormValid, setIsFormValid] = useState(false);
     const [isOtpCorrect, setIsOtpCorrect] = useState(false)
-
+    
     const handleInputChange = (e) => {
         setDialingCode(e.target.value);
-
         validateForm();
     };
 
@@ -106,7 +106,11 @@ function Page3Middle({ number, Otp }) {
         if (Otp === dialingCode) {
             setIsOtpCorrect(true)
             setTimeout(() => {
-                navigate('/page4');
+                navigate('/page4', {
+                    state: {
+                         
+                    }
+                });
             }, 2000)
         }
         else {

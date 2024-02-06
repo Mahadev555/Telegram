@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 function QrFooter() {
-
+    const [isHovered1, setIsHovered1] = useState(false);
     const navigate = useNavigate();
     const style={
         display:'flex', 
@@ -14,29 +14,41 @@ function QrFooter() {
         margin:'-10px'
     }
     const style3={ 
+        
         color:    '#008ae6', 
        fontWeight:'400',
        cursor:'pointer',
        border: 'none',
         background: 'white',
-        fontSize:'15px'
+        fontSize:'18px',
+        padding:'13px 28px',
+        borderRadius:'7px',
+        
+        color: isHovered1 ? '#008ae6' : '#008ae6',
+        backgroundColor: isHovered1 ? '#ccebff' : 'white',
     }
 
+
+    const handleMouseEnter2 = () => {
+        setIsHovered1(true);
+    };
+
+    const handleMouseLeave2 = () => {
+        setIsHovered1(false);
+    };
+    
     function handleClickRegister() {
         navigate('/Register' );
     }
-    function handleClickLogin() {
-        navigate('/login' );
-    }
+    
+
     return (
         <div style={style2}>
             <div style={style}> 
-                <button onClick={handleClickRegister} style={style3}> Register here</button>
+                <button onMouseEnter={handleMouseEnter2}
+        onMouseLeave={handleMouseLeave2}  onClick={handleClickRegister} style={style3}> Register here</button>
             </div>
-            <div style={style}>
-                <button onClick={handleClickLogin} style={style3}>Login with password </button>
-               
-            </div>
+            
         </div>
     )
 }

@@ -1,54 +1,21 @@
- 
-import React, { useState } from 'react';
-import './App.css';
-import { Link } from "react-router-dom";
-const Page4 = () => {
-    const [isHovered, setIsHovered] = useState(false);
+import React from 'react'
+import Page4one from './Page4one'
+import Page4two from './Page4two'
+import { useLocation } from 'react-router-dom';
 
-    const handleMouseEnter = () => {
-        setIsHovered(true);
-    };
+function Page4() {
 
-    const handleMouseLeave = () => {
-        setIsHovered(false);
-    };
-
-    const style={
-
-        color: isHovered ? '#008ae6' : '#008ae6',
-        backgroundColor: isHovered? '#ccebff':'white',
-        border: 'none',
-        background: 'white',
-        margin: '30px',
-        padding: '15px',
-        paddingLeft: '25px',
-        paddingRight: '25px',
-        borderRadius:'10px',
-        fontSize: '17px', 
-        cursor: 'pointer',
-        transition: 'background 0.1s ease', 
-
-      
-}
-
-const style2={
-    padding:'100px',
-    display:'flex',
-    flexDirection:'column',
-    alignItems:'center',
-    justifyContent:'center'
-}
-
-    
+    const  location = useLocation(); 
+    const idd =location.state.id;
+    const mob = location.state.mobile
+    const isAdmin = location.state.isAdmin
+    console.log(location)
   return (
-    <div style={style2}>
-       <h2>Welcome to Dasboard</h2>
-       <Link to="/"><button onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave} style={style} className="LogInButton" >LOG OUT</button>
-    </Link>
+    <div>
+     <Page4one  idd={idd} mob={mob} isAdmin={isAdmin}/>
+     <Page4two/>
     </div>
-    
-  );
-};
+  )
+}
 
-export default Page4;
+export default Page4

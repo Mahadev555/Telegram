@@ -1,8 +1,9 @@
- 
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 import axios from 'axios';
+import { jwtDecode } from "jwt-decode";
 import { faWindowRestore } from '@fortawesome/free-solid-svg-icons';
 
 function LoginMiddle() {
@@ -11,6 +12,7 @@ function LoginMiddle() {
     const [mobile, setMobile] = useState('');
     const [isFormValid, setIsFormValid] = useState(false);
     const [password, setPassword] = useState('');
+    const [isAdmin, setIsAdmin] = useState();
 
 
     const style = {
@@ -72,7 +74,7 @@ function LoginMiddle() {
             India: '+91 ',
             Pakistan: '+92 ',
             UK: '+44 ',
-            US: '+1 ', 
+            US: '+1 ',
         };
 
         setDialingCode(countryCodes[selectedValue.value] || '');
@@ -98,7 +100,7 @@ function LoginMiddle() {
         setPassword(inputValue)
     }
 
-    
+
 
     const validateForm = () => {
         const isInputFilled = mobile && mobile.trim() !== '';
@@ -126,34 +128,44 @@ function LoginMiddle() {
     const navigate = useNavigate();
 
     function handleClick() {
+        axios.post('/api/login', { mobile, password })
+            .then(response => {
+                if (response.data.userNotFound === true) {
+                    window.alert("User not exists");
+                } else {
+                    if (response.data.passMatch === true) {
+                        const token = response.data.token;
 
-       
-            axios.post('/api/login', { mobile, password })
-                .then(response => { 
-                    if (response.data.msg === true) {
-                        window.alert("User not exists");
-                    } else {
-                        if(response.data.passMatch===true){
+                        const decoded = jwtDecode(token);
 
+                        setIsAdmin(decoded.isAdmin)
+                        console.log("🚀 ~ Page4one ~ isAdmin:", isAdmin)
+
+                        console.log( "decoded" + decoded.id);
                         navigate('/page4', {
                             state: {
-                                fullCode: fullCode
+                                id: decoded.id,
+                                mobile:mobile,
+                                isAdmin :isAdmin
                             }
+                                 
                         });
-                        }else{
-                            window.alert("Entered wrong Password")
-                        }
+                    } else {
+                        window.alert("Entered wrong Password");
                     }
-                })
-                .catch(error => { 
-                    console.error('Registration failed:', error);
-                    window.alert("Registration failed");
-                });
-            }
+                }
+            })
+            .catch(error => {
+                console.error('Login failed:', error);
+                window.alert("Login failed");
+            });
+    }
+
+
     return (
 
         <div style={style}>
-            <h2 style={{marginTop:'-20px'}}>Login</h2>
+            <h2 style={{ marginTop: '-20px' }}>Login</h2>
             <Select
                 options={[
                     { value: 'India', label: 'India' },

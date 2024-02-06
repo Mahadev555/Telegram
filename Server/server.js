@@ -5,14 +5,14 @@ const router = require('./Router/auth-r');
 const connectDB = require('../Server/connection');
 const UserModel = require('../Server/Models/usermodel');
 const cors = require('cors');
-
+ 
 
 
 
 const app = express();
 app.use(cors()); 
-
 app.use(express.json());
+
 const port = process.env.PORT || 5000;
 
 connectDB()
